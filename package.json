@@ -1,0 +1,24 @@
+{
+  "name": "myFirstNodeServer",
+  "version": "1.0.0",
+  "description": "Se pide:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cqrlosdiqz/myFirstNodeServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cqrlosdiqz/myFirstNodeServer/issues"
+  },
+  "homepage": "https://github.com/cqrlosdiqz/myFirstNodeServer#readme",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.13"
+  }
+}
