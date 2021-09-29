@@ -25,7 +25,7 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=utf-8',
       });
-      res.write('{ "nombre": "Espagueti", "apellido": "Volador" }');
+      res.write(JSON.stringify({ nombre: 'Espagueti', apellido: 'Volador' }));
       res.end();
       break;
     case '/timenow':
