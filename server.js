@@ -1,11 +1,22 @@
 const http = require('http');
+const fs = require('fs');
 const moment = require('moment');
 
 const host = 'localhost';
 const port = 8080;
 
+const requestsLog = (url) => {
+  const date = moment().format('DD-MM-YYYY HH:mm:ss');
+  fs.appendFile('requests.log', `${date} - ${url}\n`, (err) => {
+    if (err) throw err;
+    console.log('Saved!');
+  });
+};
+
 const server = http.createServer((req, res) => {
   const { url } = req;
+  requestsLog(url);
+
   switch (url) {
     case '/':
       res.writeHead(200, {
@@ -29,12 +40,32 @@ const server = http.createServer((req, res) => {
       res.end();
       break;
     case '/timenow':
-      const hour = moment().format('HH:mm:ss');
+      const time = moment().format('HH:mm:ss');
       res.writeHead(200, {
         'Content-Type': 'text/plain; charset=utf-8',
       });
-      res.write(hour.toString());
+      res.write(time.toString());
       res.end();
+      break;
+    case '/home':
+      fs.readFile('public/index.html', 'utf8', (err, data) => {
+        if (err) throw err;
+        res.writeHead(200, {
+          'Content-Type': 'text/html',
+        });
+        res.write(data);
+        res.end();
+      });
+      break;
+    case '/image':
+      fs.readFile('public/images/node.png', (err, data) => {
+        if (err) throw err;
+        res.writeHead(200, {
+          'Content-Type': 'image/png',
+        });
+        res.write(data);
+        res.end();
+      });
       break;
     default:
       res.writeHead(404, {
