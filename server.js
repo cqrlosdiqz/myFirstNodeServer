@@ -5,7 +5,8 @@ const host = 'localhost';
 const port = 8080;
 
 const server = http.createServer((req, res) => {
-  switch (req.url) {
+  const { url } = req;
+  switch (url) {
     case '/':
       res.writeHead(200, {
         'Content-Type': 'text/html; charset=utf-8',
