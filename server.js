@@ -5,10 +5,10 @@ const moment = require('moment');
 const host = 'localhost';
 const port = 8080;
 
-const requestsLog = (url) => {
+const requestsLog = (code,endpoint) => {
   const date = moment().format('DD-MM-YYYY HH:mm:ss');
   try {
-    fs.appendFile('requests.log', `${date} - ${url}\n`, (err) => {
+    fs.appendFile('requests.log', `${date} - ${code} ${endpoint} \n`, (err) => {
       if (err) throw err;
       console.log('Saved!');
     });
@@ -18,10 +18,10 @@ const requestsLog = (url) => {
 };
 
 const server = http.createServer((req, res) => {
-  const { url } = req;
-  requestsLog(url);
+  const { url: endpoint } = req;
+ 
 
-  switch (url) {
+  switch (endpoint) {
     case '/':
       res.writeHead(200, {
         'Content-Type': 'text/html; charset=utf-8',
@@ -78,6 +78,8 @@ const server = http.createServer((req, res) => {
       res.write('Estos no son los androides que buscas');
       res.end();
   }
+
+  requestsLog(res.statusCode,endpoint);
 });
 
 server.listen(port, host, () => {
