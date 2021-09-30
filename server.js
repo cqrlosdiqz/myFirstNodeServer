@@ -7,10 +7,14 @@ const port = 8080;
 
 const requestsLog = (url) => {
   const date = moment().format('DD-MM-YYYY HH:mm:ss');
-  fs.appendFile('requests.log', `${date} - ${url}\n`, (err) => {
-    if (err) throw err;
-    console.log('Saved!');
-  });
+  try {
+    fs.appendFile('requests.log', `${date} - ${url}\n`, (err) => {
+      if (err) throw err;
+      console.log('Saved!');
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const server = http.createServer((req, res) => {
